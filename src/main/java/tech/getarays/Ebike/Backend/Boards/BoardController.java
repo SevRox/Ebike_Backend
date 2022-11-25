@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://ebikewebsitehosting.s3-website.eu-central-1.amazonaws.com")
 @RestController // Tells Spring to render the resulting string directly back to the caller.
 /* This is known as a stereotype annotation.
 It provides hints for people reading the code and for Spring that the class plays a specific role.
