@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>tech.getarays</groupId>
-	<artifactId>Test-spring-boot-project</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>Test-spring-boot-project</name>
-	<description>Demo project for Spring Boot</description>
+	<artifactId>backend</artifactId>
+	<version>0.2</version>
+	<name>backend</name>
+	<description>backend for website and board</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
