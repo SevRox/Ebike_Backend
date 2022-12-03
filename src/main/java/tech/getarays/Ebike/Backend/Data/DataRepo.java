@@ -10,8 +10,10 @@ import java.util.List;
 @Repository
 public interface DataRepo extends JpaRepository<Data, Long> {
 
-    @Query(value = "SELECT * FROM data WHERE board_mac = ?1 " +
-            "AND id = (SELECT MIN(id) FROM data)",
+    @Query(value = "SELECT * " +
+            "FROM data " +
+            "WHERE board_mac = ?1 " +
+            "AND id = (SELECT MIN(id) FROM data WHERE board_mac = ?1)",
             nativeQuery = true)
     Data getNewest(String board_mac);
 
@@ -27,4 +29,10 @@ public interface DataRepo extends JpaRepository<Data, Long> {
             "ORDER BY d.time_stamp",
             nativeQuery = true)
     List<Data> dataFromTimeStamps(Long timeId, String boardMac);
+
+    @Query(value = "SELECT board_mac " +
+            "FROM data " +
+            "WHERE time_stamp = (SELECT MAX(time_stamp) FROM data)",
+            nativeQuery = true)
+    String lastSelectedBoard();
 }

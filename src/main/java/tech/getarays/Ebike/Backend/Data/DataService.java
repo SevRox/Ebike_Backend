@@ -29,4 +29,8 @@ public class DataService {
     public List<Data> dataFromTimeStamps(Long timeId, String boardMac){
         return dataRepo.dataFromTimeStamps(timeId, boardMac);
     }
+
+    public String lastSelectedBoard(){
+        return dataRepo.lastSelectedBoard();
+    }
 }

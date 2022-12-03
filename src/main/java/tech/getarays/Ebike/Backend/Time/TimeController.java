@@ -9,7 +9,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://ebikewebsitehosting.s3-website.eu-central-1.amazonaws.com")
 @RestController
-@RequestMapping("/time")  // jeżeli to nie jest wymagane to jest request bedzie opsługiwany w obu kontrolerach
+@RequestMapping("/time")
 public class TimeController {
 
     private LocalDateTime recordStart;

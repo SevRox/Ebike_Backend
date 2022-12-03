@@ -1,5 +1,6 @@
 package tech.getarays.Ebike.Backend.Data;
 
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +40,7 @@ public class DataController {
         // TODO return
     }
 
-    @PostMapping("/web/{board_mac}/livedata")
+    @PostMapping("/board/{board_mac}/livedata")
     public ResponseEntity<Data> postData(@RequestBody Data data){
         Data newData;
         if(getFlag()){
@@ -49,6 +50,12 @@ public class DataController {
             newData = dataService.updateData(data);
         }
         return new ResponseEntity<>(newData, HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/web/lastboard")
+    public ResponseEntity<String> lastSelectedBoard(){
+        String boardMac = dataService.lastSelectedBoard();
+        return new ResponseEntity<>(boardMac, HttpStatus.OK);
     }
 
     //getters and setters
