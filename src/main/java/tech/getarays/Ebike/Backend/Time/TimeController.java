@@ -1,10 +1,8 @@
 package tech.getarays.Ebike.Backend.Time;
 
-import org.aspectj.weaver.ast.Not;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tech.getarays.Ebike.Backend.NotFoundExeption;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,7 +13,6 @@ import java.util.List;
 public class TimeController {
 
     private LocalDateTime recordStart;
-    private String currentBoard;
     private final TimeService timeService;
 
     public TimeController(TimeService timeService) {
@@ -27,23 +24,16 @@ public class TimeController {
         Time newTime = timeService.addTime(time);
     }
 
-    @PostMapping("/web/recordstatus/{status}")
-    public ResponseEntity<Time> setStartEnd(@PathVariable("status") boolean stat) {
+    @PostMapping("/web/{mac}/recordstatus/{status}")
+    public ResponseEntity<Time> setStartEnd(@PathVariable("status") boolean stat, @PathVariable("mac") String boardMac) {
         LocalDateTime currentTime = LocalDateTime.now();
         if (stat) {
             setStart(currentTime);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } else {
-            try {
-                // gets first data above currentTime then get mac address
-                setCurrentBoard(timeService.getMacByTime(getRecordStart()));
-                Time newTime = new Time(getCurrentBoard().toCharArray(), getRecordStart(), currentTime);
-                addTime(newTime);
-                return new ResponseEntity<>(HttpStatus.CREATED);
-            } catch (Exception error) {
-                System.out.println("No data was recorded, time stamp is not created");
-                return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-            }
+            Time newTime = new Time(boardMac.toCharArray(), getRecordStart(), currentTime);
+            addTime(newTime);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         }
     }
 
@@ -53,19 +43,17 @@ public class TimeController {
         return new ResponseEntity<>(time, HttpStatus.OK);
     }
 
+    @DeleteMapping("web/delete/{id}")
+    public ResponseEntity<?> deleteTime(@PathVariable("id") Long Id){
+        timeService.deleteById(Id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     public void setStart(LocalDateTime start) {
         recordStart = start;
     }
 
     public LocalDateTime getRecordStart() {
         return recordStart;
-    }
-
-    public String getCurrentBoard() {
-        return currentBoard;
-    }
-
-    public void setCurrentBoard(String currentBoard) {
-        this.currentBoard = currentBoard;
     }
 }

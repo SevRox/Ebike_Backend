@@ -1,6 +1,5 @@
 package tech.getarays.Ebike.Backend.Data;
 
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,13 +43,11 @@ public class DataController {
     @PostMapping("/board/{board_mac}/livedata")
     public ResponseEntity<Data> postData(@RequestBody Data data){
         Data newData;
+        data.setTime_stamp(LocalDateTime.now()); // board is unable to add current time to the send data. It is handled by this
         if(getFlag()){
-            // board is unable to add current time to the send data. It is handled by this
-            data.setTime_stamp(LocalDateTime.now());
             newData = dataService.addData(data);
         }
         else{
-            data.setTime_stamp(LocalDateTime.now());
             newData = dataService.updateData(data);
         }
         return new ResponseEntity<>(newData, HttpStatus.ACCEPTED);

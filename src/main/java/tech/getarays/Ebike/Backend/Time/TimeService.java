@@ -27,4 +27,8 @@ public class TimeService {
     public String getMacByTime(LocalDateTime time){
         return timeRepo.getMacByTime(time);
     }
+
+    public void deleteById(Long Id){
+        timeRepo.deleteById(Id);
+    }
 }
