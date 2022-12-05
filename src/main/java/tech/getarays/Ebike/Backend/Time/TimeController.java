@@ -1,8 +1,10 @@
 package tech.getarays.Ebike.Backend.Time;
 
+import org.aspectj.weaver.ast.Not;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tech.getarays.Ebike.Backend.NotFoundExeption;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,24 +23,28 @@ public class TimeController {
     }
 
     @PostMapping
-    public void addTime(@RequestBody Time time){
+    public void addTime(@RequestBody Time time) {
         Time newTime = timeService.addTime(time);
     }
 
     @PostMapping("/web/recordstatus/{status}")
-    public ResponseEntity<Time> setStartEnd(@PathVariable("status") boolean stat){
+    public ResponseEntity<Time> setStartEnd(@PathVariable("status") boolean stat) {
         LocalDateTime currentTime = LocalDateTime.now();
-        if(stat){
+        if (stat) {
             setStart(currentTime);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        } else {
+            try {
+                // gets first data above currentTime then get mac address
+                setCurrentBoard(timeService.getMacByTime(getRecordStart()));
+                Time newTime = new Time(getCurrentBoard().toCharArray(), getRecordStart(), currentTime);
+                addTime(newTime);
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            } catch (Exception error) {
+                System.out.println("No data was recorded, time stamp is not created");
+                return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+            }
         }
-        else {
-            // gets first data above currentTime then get mac address
-            setCurrentBoard(timeService.getMacByTime(getRecordStart()));
-            Time newTime = new Time( getCurrentBoard().toCharArray(), getRecordStart(), currentTime);
-            addTime(newTime);
-        }
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/web/{board_mac}/timestamps")

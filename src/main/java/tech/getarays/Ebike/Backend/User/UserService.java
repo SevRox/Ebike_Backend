@@ -2,6 +2,7 @@ package tech.getarays.Ebike.Backend.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tech.getarays.Ebike.Backend.NotFoundExeption;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class UserService {
     }
 
     public User findUserById(Long id){
-        return userRepo.findById(id).orElseThrow(() -> new UserNotFoundExeption("User by id: " + id + " was not found"));
+        return userRepo.findById(id).orElseThrow(() -> new NotFoundExeption("User by id: " + id + " was not found"));
     }
 
     public void deleteUser(Long id) {

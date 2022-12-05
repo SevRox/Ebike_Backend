@@ -13,11 +13,11 @@ public interface DataRepo extends JpaRepository<Data, Long> {
     @Query(value = "SELECT * " +
             "FROM data " +
             "WHERE board_mac = ?1 " +
-            "AND id = (SELECT MIN(id) FROM data WHERE board_mac = ?1)",
+            "AND time_stamp = (SELECT MAX(time_stamp) FROM data WHERE board_mac = ?1)",
             nativeQuery = true)
     Data getNewest(String board_mac);
 
-    @Query(value = "SELECT min(id) as id FROM data WHERE board_mac = ?1",
+    @Query(value = "SELECT min(id) FROM data WHERE board_mac = ?1",
             nativeQuery = true)
     Long getIdByMac(char[] board_mac);
 

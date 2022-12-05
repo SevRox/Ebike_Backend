@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @CrossOrigin(origins = "http://ebikewebsitehosting.s3-website.eu-central-1.amazonaws.com")
@@ -44,9 +45,12 @@ public class DataController {
     public ResponseEntity<Data> postData(@RequestBody Data data){
         Data newData;
         if(getFlag()){
+            // board is unable to add current time to the send data. It is handled by this
+            data.setTime_stamp(LocalDateTime.now());
             newData = dataService.addData(data);
         }
         else{
+            data.setTime_stamp(LocalDateTime.now());
             newData = dataService.updateData(data);
         }
         return new ResponseEntity<>(newData, HttpStatus.ACCEPTED);
