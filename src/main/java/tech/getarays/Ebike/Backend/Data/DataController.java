@@ -3,6 +3,7 @@ package tech.getarays.Ebike.Backend.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tech.getarays.Ebike.Backend.dto.MacBoardDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -53,9 +54,9 @@ public class DataController {
         return new ResponseEntity<>(newData, HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/web/lastboard")
-    public ResponseEntity<String> lastSelectedBoard(){
-        String boardMac = dataService.lastSelectedBoard();
+    @GetMapping(value = "/web/lastboard", produces = "application/json")
+    public ResponseEntity<MacBoardDto> lastSelectedBoard(){
+        MacBoardDto boardMac = dataService.lastSelectedBoard();
         return new ResponseEntity<>(boardMac, HttpStatus.OK);
     }
 

@@ -2,6 +2,7 @@ package tech.getarays.Ebike.Backend.Data;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tech.getarays.Ebike.Backend.dto.MacBoardDto;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class DataService {
         return dataRepo.dataFromTimeStamps(timeId, boardMac);
     }
 
-    public String lastSelectedBoard(){
-        return dataRepo.lastSelectedBoard();
+    public MacBoardDto lastSelectedBoard(){
+       return new MacBoardDto(dataRepo.lastSelectedBoard());
     }
 }
