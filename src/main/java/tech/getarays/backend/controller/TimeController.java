@@ -1,8 +1,10 @@
-package tech.getarays.Ebike.Backend.Time;
+package tech.getarays.backend.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tech.getarays.backend.model.Time;
+import tech.getarays.backend.service.TimeService;
 
 import java.time.LocalDateTime;
 import java.util.List;

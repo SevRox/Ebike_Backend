@@ -1,4 +1,4 @@
-package tech.getarays.Ebike.Backend;
+package tech.getarays.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

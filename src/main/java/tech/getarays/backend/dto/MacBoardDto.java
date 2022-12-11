@@ -1,4 +1,4 @@
-package tech.getarays.Ebike.Backend.dto;
+package tech.getarays.backend.dto;
 
 public class MacBoardDto {
     private String macBoard;

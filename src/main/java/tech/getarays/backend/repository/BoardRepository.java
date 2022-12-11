@@ -1,13 +1,14 @@
-package tech.getarays.Ebike.Backend.Boards;
+package tech.getarays.backend.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import tech.getarays.backend.model.Board;
 
 import java.util.List;
 
 @Repository
-public interface BoardRepo extends JpaRepository<Board, Long> {
+public interface BoardRepository extends JpaRepository<Board, Long> {
 
     @Query(value = "SELECT * FROM boards WHERE user_id = ?1 ", nativeQuery = true)
     List<Board> findBoardsByUser(Long user_id);

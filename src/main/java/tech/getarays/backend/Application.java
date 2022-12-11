@@ -1,13 +1,13 @@
-package tech.getarays.Ebike.Backend;
+package tech.getarays.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringServer {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringServer.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 }

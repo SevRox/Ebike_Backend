@@ -1,4 +1,4 @@
-package tech.getarays.Ebike.Backend;
+package tech.getarays.backend;
 
 public class NotFoundExeption extends RuntimeException {
     public NotFoundExeption(String message) {

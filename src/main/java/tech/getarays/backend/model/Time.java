@@ -1,4 +1,4 @@
-package tech.getarays.Ebike.Backend.Time;
+package tech.getarays.backend.model;
 
 import javax.persistence.*;
 import java.io.Serializable;

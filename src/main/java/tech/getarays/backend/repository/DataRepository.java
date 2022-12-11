@@ -1,14 +1,15 @@
-package tech.getarays.Ebike.Backend.Data;
+package tech.getarays.backend.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import tech.getarays.backend.model.Data;
 
 import java.util.List;
 
 
 @Repository
-public interface DataRepo extends JpaRepository<Data, Long> {
+public interface DataRepository extends JpaRepository<Data, Long> {
 
     @Query(value = "SELECT * " +
             "FROM data " +

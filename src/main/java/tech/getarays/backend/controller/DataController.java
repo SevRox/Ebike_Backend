@@ -1,9 +1,11 @@
-package tech.getarays.Ebike.Backend.Data;
+package tech.getarays.backend.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tech.getarays.Ebike.Backend.dto.MacBoardDto;
+import tech.getarays.backend.dto.MacBoardDto;
+import tech.getarays.backend.model.Data;
+import tech.getarays.backend.service.DataService;
 
 import java.time.LocalDateTime;
 import java.util.List;
