@@ -11,7 +11,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import tech.getarays.backend.filter.CustomAuthenticationFilter;
+import tech.getarays.backend.filter.CustomAuthorizationFilter;
+
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 
 @Configuration @EnableWebSecurity @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -25,11 +30,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
+        customAuthenticationFilter.setFilterProcessesUrl("/web/login");
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        //http.authorizeRequests().antMatchers("/web/**").permitAll().anyRequest(); TODO not working mapping
-        http.authorizeHttpRequests().anyRequest().permitAll(); //1.28.00
-        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
+        http.authorizeRequests().antMatchers("/web/login/**").permitAll();
+        http.authorizeRequests().antMatchers(GET, "/web/**").hasAnyAuthority("User");
+        http.authorizeRequests().antMatchers(POST, "/web/**").hasAnyAuthority("User");
+        http.authorizeRequests().anyRequest().authenticated();
+        http.addFilter(customAuthenticationFilter);
+        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
