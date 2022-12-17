@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@CrossOrigin(origins = "http://ebikewebsitehosting.s3-website.eu-central-1.amazonaws.com")
 @Service @RequiredArgsConstructor // dependency injection
 @Transactional @Slf4j // for log usage
 public class UserServiceImpl implements UserService, UserDetailsService {
