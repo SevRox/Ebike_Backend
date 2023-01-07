@@ -15,14 +15,15 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
+    // TODO *****
     @GetMapping("/all")
     public ResponseEntity<List<User>> getUsers() {
         return ResponseEntity.ok().body(userService.getUsers());
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<User> saveUser(@RequestBody User user){
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/users/save").toUriString());
+    @PostMapping("/register")
+    public ResponseEntity<User> registerUser(@RequestBody User user){
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/users/register").toUriString());
         return ResponseEntity.created(uri).body(userService.saveUser(user));
     }
 }

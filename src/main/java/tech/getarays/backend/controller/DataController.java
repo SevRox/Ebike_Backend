@@ -15,34 +15,37 @@ import java.util.List;
 @RequestMapping("/data")
 public class DataController {
 
-    private boolean flag; // record status
+    private boolean flag; // record status // TODO *****
     private final DataService dataService;
 
-    //@Autowired
     public DataController(DataService dataService) {
         this.dataService = dataService;
         setFlag(false);
     }
 
     // gets only one row with the lowest ID (live data)
+    // TODO *****
     @GetMapping("/web/{board_mac}/livedata")
     public ResponseEntity<Data> getNewest(@PathVariable("board_mac") String boardMac) {
         Data data = dataService.findNewest(boardMac);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
+    // TODO *****
     @GetMapping("/web/{board_mac}/record/{id}")
     public ResponseEntity<List<Data>> getInterval(@PathVariable("board_mac") String boardMac, @PathVariable("id") Long timeId){
         List<Data> intervalData = dataService.dataFromTimeStamps(timeId, boardMac);
         return new ResponseEntity<>(intervalData, HttpStatus.OK);
     }
 
+    // TODO *****
     @PostMapping("/web/recordstatus/{status}")
     public void setCurrentFlag(@PathVariable("status") boolean status) {
         setFlag(status);
         // TODO return
     }
 
+    // TODO *****
     @PostMapping("/board/{board_mac}/livedata")
     public ResponseEntity<Data> postData(@RequestBody Data data){
         Data newData;

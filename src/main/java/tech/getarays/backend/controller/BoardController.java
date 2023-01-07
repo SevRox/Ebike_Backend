@@ -24,6 +24,7 @@ public class BoardController {
     }
 
     //annotation for mapping all the incoming HTTP request URLs to the corresponding controller methods
+    // TODO *****
     @GetMapping("/web/all/{user_id}")
     public ResponseEntity<List<Board>> getBoardByUser(@PathVariable("user_id") Long userId){
         List<Board> board = boardService.findBoardByUser(userId);
@@ -42,6 +43,7 @@ public class BoardController {
         return new ResponseEntity<>(boards, HttpStatus.OK);
     }
 
+    // TODO *****
     @DeleteMapping("/web/delete/{mac_address}")
     public ResponseEntity<?> deleteBoard(@PathVariable("mac_address") String mac_address){
         boardService.deleteBoard(mac_address);
