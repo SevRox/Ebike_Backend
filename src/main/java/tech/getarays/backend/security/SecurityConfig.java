@@ -12,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -57,12 +58,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasAnyAuthority("User");
 
         http.authorizeRequests()
+                .antMatchers(GET, "/data/board/**")
+                .permitAll();
+
+        http.authorizeRequests()
+                .antMatchers(POST, "/data/board/**")
+                .permitAll();
+
+        http.authorizeRequests()
                 .anyRequest()
                 .authenticated();
 
-        http.logout(logout -> logout
-                .logoutUrl("/auth/logout")
-                .invalidateHttpSession(true));
+        http.logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"))
+                .logoutSuccessUrl("/auth/login")
+                //.deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true);
 
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

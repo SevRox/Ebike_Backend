@@ -26,7 +26,6 @@ public class TimeController {
         Time newTime = timeService.addTime(time);
     }
 
-    // TODO *****
     @PostMapping("/web/{mac}/recordstatus/{status}")
     public ResponseEntity<Time> setStartEnd(@PathVariable("status") boolean stat, @PathVariable("mac") String boardMac) {
         LocalDateTime currentTime = LocalDateTime.now();
@@ -40,14 +39,12 @@ public class TimeController {
         }
     }
 
-    // TODO *****
     @GetMapping("/web/{board_mac}/timestamps")
     public ResponseEntity<List<Time>> getALL(@PathVariable("board_mac") String boardMac){
         List<Time> time = timeService.getAll(boardMac);
         return new ResponseEntity<>(time, HttpStatus.OK);
     }
 
-    // TODO *****
     @DeleteMapping("web/delete/{id}")
     public ResponseEntity<?> deleteTime(@PathVariable("id") Long Id){
         timeService.deleteById(Id);

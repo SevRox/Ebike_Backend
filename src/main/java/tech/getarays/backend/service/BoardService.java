@@ -18,8 +18,8 @@ public class BoardService {
     }
 
     // REDO
-    public List<Board> findBoardByUser(Long userId){
-        return boardRepository.findBoardsByUser(userId);
+    public List<Board> findBoardByUser(String username){
+        return boardRepository.findBoardsByUser(username);
     }
     public Board addBoard(Board board){
         return boardRepository.save(board);
